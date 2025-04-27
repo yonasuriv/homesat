@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
-import { Plus, MoreHorizontal, Trophy, Crown } from "lucide-react"
+import { MoreHorizontal, Trophy, Crown } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,6 +17,7 @@ import {
 import { getScoreColor } from "@/lib/scoring"
 import { getFamilyMembers } from "@/lib/actions/family-members"
 import { SeedDatabaseButton } from "@/components/seed-database-button"
+import { AddMemberDialog } from "@/components/add-member-dialog"
 
 export function FamilyMembers() {
   const [members, setMembers] = useState<any[]>([])
@@ -83,10 +84,7 @@ export function FamilyMembers() {
         </CardHeader>
         <CardContent>
           <div className="flex justify-center p-8">
-            <Button size="sm">
-              <Plus className="mr-2 h-4 w-4" />
-              Add Roommate
-            </Button>
+            <AddMemberDialog />
           </div>
         </CardContent>
       </Card>
@@ -103,10 +101,7 @@ export function FamilyMembers() {
           </div>
           <div className="flex gap-2">
             <SeedDatabaseButton />
-            <Button size="sm">
-              <Plus className="mr-2 h-4 w-4" />
-              Add Roommate
-            </Button>
+            <AddMemberDialog />
           </div>
         </div>
       </CardHeader>

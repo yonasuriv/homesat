@@ -105,9 +105,6 @@ export function HouseAreas() {
               <CardHeader className="p-4 pb-2">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-base">{area.name}</CardTitle>
-                  <Badge variant="outline" className={`${getPriorityColor(area.priority)}`}>
-                    {area.priority}
-                  </Badge>
                 </div>
               </CardHeader>
               <CardContent className="p-4 pt-2">

@@ -9,9 +9,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Trophy, Medal, Star, Award, TrendingUp, CheckCircle } from "lucide-react"
+import { Trophy, Medal, Star, CheckCircle, CircleCheck, BarChart3 } from "lucide-react"
 import { getScoreColor } from "@/lib/scoring"
-import { MemberStats } from "@/components/member-stats"
+import { Progress } from "@/components/ui/progress"
 
 export function LeaderboardPage() {
   const weeklyLeaders = [
@@ -23,6 +23,7 @@ export function LeaderboardPage() {
       points: 580,
       completedChores: 32,
       streak: 7,
+      completionRate: 86,
       taskBreakdown: {
         urgent: 12,
         notUrgent: 20,
@@ -31,6 +32,22 @@ export function LeaderboardPage() {
         annoyance: 10,
         noRealProblem: 2,
       },
+      areaPerformance: {
+        kitchen: 95,
+        livingRoom: 85,
+        bathroom: 90,
+        bedroom: 75,
+        garden: 80,
+      },
+      weeklyProgress: [
+        { day: "Mon", target: 5, completed: 4 },
+        { day: "Tue", target: 4, completed: 5 },
+        { day: "Wed", target: 6, completed: 6 },
+        { day: "Thu", target: 5, completed: 3 },
+        { day: "Fri", target: 4, completed: 5 },
+        { day: "Sat", target: 5, completed: 4 },
+        { day: "Sun", target: 3, completed: 5 },
+      ],
     },
     {
       rank: 2,
@@ -40,6 +57,7 @@ export function LeaderboardPage() {
       points: 490,
       completedChores: 30,
       streak: 6,
+      completionRate: 82,
       taskBreakdown: {
         urgent: 10,
         notUrgent: 20,
@@ -57,6 +75,7 @@ export function LeaderboardPage() {
       points: 420,
       completedChores: 28,
       streak: 5,
+      completionRate: 78,
       taskBreakdown: {
         urgent: 8,
         notUrgent: 20,
@@ -81,7 +100,8 @@ export function LeaderboardPage() {
     }
   }
 
-  const [selectedMember, setSelectedMember] = useState(weeklyLeaders[0])
+  // Assume current user is the first in the list
+  const [currentUser] = useState(weeklyLeaders[0])
 
   return (
     <SidebarProvider>
@@ -109,24 +129,122 @@ export function LeaderboardPage() {
                 All Time
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="weekly" className="space-y-4">
-              <div className="grid grid-cols-12 gap-4">
-                <Card className="col-span-8">
-                  <CardHeader>
-                    <CardTitle>Weekly Leaderboard</CardTitle>
-                    <CardDescription>Top performers this week</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
+            <TabsContent value="weekly">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                {/* Left Side - User Stats */}
+                <div className="lg:col-span-7 space-y-6">
+                  {/* User Header */}
+                  <div className="flex items-center gap-3">
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage src={currentUser.avatar || "/placeholder.svg"} alt={currentUser.name} />
+                      <AvatarFallback>{currentUser.initials}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <h2 className="text-lg font-semibold">{currentUser.name}'s Stats</h2>
+                      <p className="text-sm text-muted-foreground">Detailed performance metrics</p>
+                    </div>
+                  </div>
+
+                  {/* First Row - 4 Cards */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {/* Card 1: Points */}
+                    <Card className="bg-primary/5">
+                      <CardContent className="p-6 flex flex-col items-center justify-center">
+                        <Trophy className="h-8 w-8 text-yellow-500 mb-2" />
+                        <span className="text-3xl font-bold">{currentUser.points}</span>
+                        <span className="text-sm text-muted-foreground">Total Points</span>
+                      </CardContent>
+                    </Card>
+
+                    {/* Card 2: Streak */}
+                    <Card className="bg-primary/5">
+                      <CardContent className="p-6 flex flex-col items-center justify-center">
+                        <Star className="h-8 w-8 text-yellow-500 mb-2" />
+                        <span className="text-3xl font-bold">{currentUser.streak}</span>
+                        <span className="text-sm text-muted-foreground">Day Streak</span>
+                      </CardContent>
+                    </Card>
+
+                    {/* Card 3: Completed Tasks */}
+                    <Card className="bg-primary/5">
+                      <CardContent className="p-6 flex flex-col items-center justify-center">
+                        <CircleCheck className="h-8 w-8 text-green-500 mb-2" />
+                        <span className="text-3xl font-bold">{currentUser.completedChores}</span>
+                        <span className="text-sm text-muted-foreground">Completed</span>
+                      </CardContent>
+                    </Card>
+
+                    {/* Card 4: Completion Rate */}
+                    <Card className="bg-primary/5">
+                      <CardContent className="p-6 flex flex-col items-center justify-center">
+                        <BarChart3 className="h-8 w-8 text-blue-500 mb-2" />
+                        <span className="text-3xl font-bold">{currentUser.completionRate}%</span>
+                        <span className="text-sm text-muted-foreground">Completion Rate</span>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  {/* Second Row - Weekly Progress and Area Performance */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Weekly Progress Chart */}
+                    <Card>
+                      <CardHeader className="pb-2">
+                        <CardTitle>Weekly Progress</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex items-center justify-between h-40">
+                          {currentUser.weeklyProgress.map((day, i) => (
+                            <div key={i} className="flex flex-col items-center gap-1">
+                              <div className="flex flex-col items-center gap-1">
+                                <div className="h-32 w-8 flex flex-col justify-end gap-1">
+                                  <div className="w-full bg-muted rounded-sm h-[60%]"></div>
+                                  <div
+                                    className="w-full bg-green-500 rounded-sm"
+                                    style={{ height: `${(day.completed / day.target) * 60}%` }}
+                                  ></div>
+                                </div>
+                              </div>
+                              <span className="text-xs text-muted-foreground">{day.day}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Area Performance */}
+                    <Card>
+                      <CardHeader className="pb-2">
+                        <CardTitle>Area Performance</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        {Object.entries(currentUser.areaPerformance).map(([area, value]) => (
+                          <div key={area} className="space-y-1">
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm capitalize">{area.replace(/([A-Z])/g, " $1").trim()}</span>
+                              <span className="text-sm font-medium">{value}%</span>
+                            </div>
+                            <Progress value={value} className="h-2" />
+                          </div>
+                        ))}
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+
+                {/* Right Side - Leaderboard */}
+                <div className="lg:col-span-5">
+                  <Card className="h-full">
+                    <CardHeader>
+                      <CardTitle>Weekly Leaderboard</CardTitle>
+                      <CardDescription>Top performers this week</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
                       {weeklyLeaders.map((leader) => (
                         <div
                           key={leader.rank}
-                          className={`flex items-center p-4 rounded-lg transition-colors ${
-                            selectedMember.name === leader.name
-                              ? "bg-primary/10 border border-primary/20"
-                              : "hover:bg-accent cursor-pointer"
+                          className={`flex items-center p-4 rounded-lg ${
+                            leader.rank === 1 ? "bg-primary/10 border border-primary/20" : "hover:bg-accent"
                           }`}
-                          onClick={() => setSelectedMember(leader)}
                         >
                           <div className="flex h-12 w-12 items-center justify-center mr-3">
                             {getRankIcon(leader.rank)}
@@ -175,50 +293,6 @@ export function LeaderboardPage() {
                           </div>
                         </div>
                       ))}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <div className="col-span-4 space-y-4">
-                  <MemberStats member={selectedMember} />
-
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Achievements</CardTitle>
-                      <CardDescription>Special recognitions this week</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <div className="flex items-center p-2 bg-green-500/10 rounded-lg">
-                          <div className="h-10 w-10 rounded-full bg-green-500/20 flex items-center justify-center mr-3">
-                            <TrendingUp className="h-5 w-5 text-green-500" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium">Most Improved</p>
-                            <p className="text-xs text-muted-foreground">Joaquin (+45%)</p>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center p-2 bg-yellow-500/10 rounded-lg">
-                          <div className="h-10 w-10 rounded-full bg-yellow-500/20 flex items-center justify-center mr-3">
-                            <Star className="h-5 w-5 text-yellow-500" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium">Perfect Streak</p>
-                            <p className="text-xs text-muted-foreground">Juan (7 days)</p>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center p-2 bg-blue-500/10 rounded-lg">
-                          <div className="h-10 w-10 rounded-full bg-blue-500/20 flex items-center justify-center mr-3">
-                            <Award className="h-5 w-5 text-blue-500" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium">Most Efficient</p>
-                            <p className="text-xs text-muted-foreground">Jonathan (fastest times)</p>
-                          </div>
-                        </div>
-                      </div>
                     </CardContent>
                   </Card>
                 </div>

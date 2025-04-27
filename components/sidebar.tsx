@@ -34,7 +34,7 @@ export function AppSidebar() {
   const menuItems = [
     {
       title: "Dashboard",
-      href: "/",
+      href: "/dashboard",
       icon: Dashboard,
     },
     {
