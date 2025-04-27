@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -13,45 +14,82 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import type { FamilyMember } from "@/lib/types"
 import { getScoreColor } from "@/lib/scoring"
+import { getFamilyMembers } from "@/lib/actions/family-members"
+import { SeedDatabaseButton } from "@/components/seed-database-button"
 
 export function FamilyMembers() {
-  const members: FamilyMember[] = [
-    {
-      id: "1",
-      name: "Jonathan Di Rico",
-      avatar: "/thoughtful-bearded-man.png",
-      initials: "DJ",
-      role: "Roommate",
-      completedChores: 8,
-      totalChores: 10,
-      streak: 5,
-      score: 420,
-    },
-    {
-      id: "2",
-      name: "Juan Munoz",
-      avatar: "/contemplative-artist.png",
-      initials: "MJ",
-      role: "Roommate",
-      completedChores: 10,
-      totalChores: 12,
-      streak: 7,
-      score: 580,
-    },
-    {
-      id: "3",
-      name: "Joaquin Vazquez",
-      avatar: "/contemplative-man.png",
-      initials: "VJ",
-      role: "Roommate",
-      completedChores: 6,
-      totalChores: 8,
-      streak: 3,
-      score: 310,
-    },
-  ]
+  const [members, setMembers] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function loadMembers() {
+      try {
+        const data = await getFamilyMembers()
+
+        // Add some mock stats for now
+        const membersWithStats = data.map((member) => ({
+          ...member,
+          completedChores: Math.floor(Math.random() * 10) + 5,
+          totalChores: Math.floor(Math.random() * 5) + 10,
+          streak: Math.floor(Math.random() * 7) + 1,
+          score: Math.floor(Math.random() * 300) + 200,
+        }))
+
+        setMembers(membersWithStats)
+      } catch (error) {
+        console.error("Error loading family members:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadMembers()
+  }, [])
+
+  if (loading) {
+    return (
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle>Roommates</CardTitle>
+              <CardDescription>Loading roommates...</CardDescription>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="flex justify-center p-8">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (members.length === 0) {
+    return (
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle>Roommates</CardTitle>
+              <CardDescription>No roommates found. Seed the database to get started.</CardDescription>
+            </div>
+            <SeedDatabaseButton />
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="flex justify-center p-8">
+            <Button size="sm">
+              <Plus className="mr-2 h-4 w-4" />
+              Add Roommate
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
 
   return (
     <Card>
@@ -61,10 +99,13 @@ export function FamilyMembers() {
             <CardTitle>Roommates</CardTitle>
             <CardDescription>Manage roommates and their chore progress</CardDescription>
           </div>
-          <Button size="sm">
-            <Plus className="mr-2 h-4 w-4" />
-            Add Roommate
-          </Button>
+          <div className="flex gap-2">
+            <SeedDatabaseButton />
+            <Button size="sm">
+              <Plus className="mr-2 h-4 w-4" />
+              Add Roommate
+            </Button>
+          </div>
         </div>
       </CardHeader>
       <CardContent>

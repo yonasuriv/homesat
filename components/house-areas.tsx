@@ -1,100 +1,102 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
-import type { HouseArea } from "@/lib/types"
 import { getScoreColor, getPriorityColor } from "@/lib/scoring"
+import { getAreas } from "@/lib/actions/areas"
+import { SeedDatabaseButton } from "@/components/seed-database-button"
+import { Button } from "@/components/ui/button"
+import { Plus } from "lucide-react"
 
 export function HouseAreas() {
-  const areas: HouseArea[] = [
-    {
-      id: "1",
-      name: "Kitchen",
-      totalChores: 8,
-      completedChores: 6,
-      assignedTo: ["Jonathan", "Juan"],
-      priority: "IMPORTANT",
-      lastCleaned: "Today",
-      score: 92,
-    },
-    {
-      id: "2",
-      name: "Living Room",
-      totalChores: 5,
-      completedChores: 4,
-      assignedTo: ["Jonathan"],
-      priority: "DO IT CALMLY",
-      lastCleaned: "Yesterday",
-      score: 85,
-    },
-    {
-      id: "3",
-      name: "Bathroom",
-      totalChores: 6,
-      completedChores: 3,
-      assignedTo: ["Juan"],
-      priority: "MUST DO",
-      lastCleaned: "2 days ago",
-      score: 65,
-    },
-    {
-      id: "4",
-      name: "Bedroom 1",
-      totalChores: 4,
-      completedChores: 4,
-      assignedTo: ["Jonathan"],
-      priority: "DO IT CALMLY",
-      lastCleaned: "Today",
-      score: 100,
-    },
-    {
-      id: "5",
-      name: "Bedroom 2",
-      totalChores: 4,
-      completedChores: 2,
-      assignedTo: ["Joaquin"],
-      priority: "DO IT CALMLY",
-      lastCleaned: "3 days ago",
-      score: 50,
-    },
-    {
-      id: "6",
-      name: "Garage",
-      totalChores: 3,
-      completedChores: 1,
-      assignedTo: ["Juan", "Jonathan"],
-      priority: "OPTIONAL",
-      lastCleaned: "Last week",
-      score: 33,
-    },
-    {
-      id: "7",
-      name: "Garden",
-      totalChores: 5,
-      completedChores: 3,
-      assignedTo: ["Joaquin"],
-      priority: "DO IT CALMLY",
-      lastCleaned: "2 days ago",
-      score: 60,
-    },
-    {
-      id: "8",
-      name: "Basement",
-      totalChores: 3,
-      completedChores: 0,
-      assignedTo: ["Jonathan", "Juan"],
-      priority: "OPTIONAL",
-      lastCleaned: "2 weeks ago",
-      score: 0,
-    },
-  ]
+  const [areas, setAreas] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function loadAreas() {
+      try {
+        const data = await getAreas()
+
+        // Add some mock stats for now
+        const areasWithStats = data.map((area) => ({
+          ...area,
+          totalChores: Math.floor(Math.random() * 5) + 3,
+          completedChores: Math.floor(Math.random() * 3) + 1,
+          assignedTo: ["Jonathan", "Juan", "Joaquin"].slice(0, Math.floor(Math.random() * 3) + 1),
+          priority: ["MUST DO", "IMPORTANT", "DO IT CALMLY", "OPTIONAL"][Math.floor(Math.random() * 4)],
+          lastCleaned: ["Today", "Yesterday", "2 days ago", "Last week"][Math.floor(Math.random() * 4)],
+          score: Math.floor(Math.random() * 100),
+        }))
+
+        setAreas(areasWithStats)
+      } catch (error) {
+        console.error("Error loading areas:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadAreas()
+  }, [])
+
+  if (loading) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>House Areas</CardTitle>
+          <CardDescription>Loading areas...</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex justify-center p-8">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (areas.length === 0) {
+    return (
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle>House Areas</CardTitle>
+              <CardDescription>No areas found. Seed the database to get started.</CardDescription>
+            </div>
+            <SeedDatabaseButton />
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="flex justify-center p-8">
+            <Button size="sm">
+              <Plus className="mr-2 h-4 w-4" />
+              Add Area
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>House Areas</CardTitle>
-        <CardDescription>Manage and track cleanliness by area</CardDescription>
+        <div className="flex items-center justify-between">
+          <div>
+            <CardTitle>House Areas</CardTitle>
+            <CardDescription>Manage and track cleanliness by area</CardDescription>
+          </div>
+          <div className="flex gap-2">
+            <SeedDatabaseButton />
+            <Button size="sm">
+              <Plus className="mr-2 h-4 w-4" />
+              Add Area
+            </Button>
+          </div>
+        </div>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

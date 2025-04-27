@@ -1,7 +1,52 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { getRecentActivity } from "@/lib/actions/activity"
+import { formatDistanceToNow } from "date-fns"
 
 export function RecentActivity({ className }: { className?: string }) {
+  const [activities, setActivities] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function loadActivities() {
+      try {
+        const data = await getRecentActivity(4)
+        setActivities(data)
+      } catch (error) {
+        console.error("Error loading activities:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadActivities()
+  }, [])
+
+  const getActivityText = (activity: any) => {
+    const memberName = activity.family_members?.name || "Someone"
+    const choreName = activity.chores?.name || "a chore"
+
+    switch (activity.action) {
+      case "completed":
+        return `${memberName} completed ${choreName}`
+      case "created":
+        return `${memberName} added ${choreName} to schedule`
+      default:
+        return `${memberName} ${activity.action} ${choreName}`
+    }
+  }
+
+  const getActivityTime = (timestamp: string) => {
+    try {
+      return formatDistanceToNow(new Date(timestamp), { addSuffix: true })
+    } catch (error) {
+      return "some time ago"
+    }
+  }
+
   return (
     <Card className={className}>
       <CardHeader>
@@ -9,48 +54,31 @@ export function RecentActivity({ className }: { className?: string }) {
         <CardDescription>Latest chore updates from family members</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="space-y-8">
-          <div className="flex items-center">
-            <Avatar className="h-9 w-9">
-              <AvatarImage src="/contemplative-artist.png" alt="Sarah" />
-              <AvatarFallback>SD</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">Sarah completed Vacuum Living Room</p>
-              <p className="text-sm text-muted-foreground">Today at 10:30 AM</p>
-            </div>
+        {loading ? (
+          <div className="flex justify-center p-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
-          <div className="flex items-center">
-            <Avatar className="h-9 w-9">
-              <AvatarImage src="/contemplative-man.png" alt="Mike" />
-              <AvatarFallback>MD</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">Mike completed Take Out Trash</p>
-              <p className="text-sm text-muted-foreground">Today at 9:15 AM</p>
-            </div>
+        ) : activities.length === 0 ? (
+          <div className="text-center py-8 text-muted-foreground">No recent activity found</div>
+        ) : (
+          <div className="space-y-8">
+            {activities.map((activity) => (
+              <div key={activity.id} className="flex items-center">
+                <Avatar className="h-9 w-9">
+                  <AvatarImage
+                    src={activity.family_members?.avatar || "/placeholder.svg"}
+                    alt={activity.family_members?.name || "User"}
+                  />
+                  <AvatarFallback>{activity.family_members?.initials || "U"}</AvatarFallback>
+                </Avatar>
+                <div className="ml-4 space-y-1">
+                  <p className="text-sm font-medium leading-none">{getActivityText(activity)}</p>
+                  <p className="text-sm text-muted-foreground">{getActivityTime(activity.created_at)}</p>
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="flex items-center">
-            <Avatar className="h-9 w-9">
-              <AvatarImage src="/sunlit-blonde.png" alt="Emma" />
-              <AvatarFallback>ED</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">Emma added Clean Bathroom to schedule</p>
-              <p className="text-sm text-muted-foreground">Yesterday at 4:45 PM</p>
-            </div>
-          </div>
-          <div className="flex items-center">
-            <Avatar className="h-9 w-9">
-              <AvatarImage src="/thoughtful-bearded-man.png" alt="John" />
-              <AvatarFallback>JD</AvatarFallback>
-            </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">John completed Mow the Lawn</p>
-              <p className="text-sm text-muted-foreground">Yesterday at 2:30 PM</p>
-            </div>
-          </div>
-        </div>
+        )}
       </CardContent>
     </Card>
   )
