@@ -37,7 +37,7 @@ export function AppSidebar() {
       title: "Dashboard",
       href: "/",
       icon: Home,
-    },    
+    },
     {
       title: "Areas",
       href: "/areas",
