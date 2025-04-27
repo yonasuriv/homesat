@@ -2,13 +2,12 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
-  Home,
   CalendarDays,
   Settings,
   Users,
   BarChart3,
   ClipboardList,
-  HomeIcon,
+  LayoutDashboardIcon as Dashboard,
   Trophy,
   Map,
   PanelLeftClose,
@@ -36,7 +35,7 @@ export function AppSidebar() {
     {
       title: "Dashboard",
       href: "/",
-      icon: Home,
+      icon: Dashboard,
     },
     {
       title: "Areas",
@@ -80,7 +79,7 @@ export function AppSidebar() {
       <SidebarHeader className="border-b border-sidebar-border">
         <div className="flex items-center justify-between px-4 py-3">
           <div className="flex items-center gap-2">
-            <HomeIcon className="h-6 w-6" />
+            <Dashboard className="h-6 w-6" />
             {!collapsed && <span className="text-xl font-bold">HomeTask</span>}
           </div>
           <Button variant="ghost" size="icon" onClick={() => setCollapsed(!collapsed)} className="h-8 w-8">

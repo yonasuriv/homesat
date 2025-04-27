@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { AppSidebar } from "@/components/sidebar"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -30,9 +31,18 @@ import {
 } from "@/components/ui/chart"
 import { ScoreBreakdown } from "@/components/score-breakdown"
 import { OverdueGraph } from "@/components/overdue-graph"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export function Analytics() {
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884d8", "#82ca9d"]
+  const [selectedUser, setSelectedUser] = useState("Jonathan")
+
+  // Mock users data
+  const users = [
+    { id: 1, name: "Jonathan", avatar: "/thoughtful-bearded-man.png", initials: "JD" },
+    { id: 2, name: "Juan", avatar: "/contemplative-man.png", initials: "JM" },
+    { id: 3, name: "Joaquin", avatar: "/thoughtful-gentleman.png", initials: "JR" },
+  ]
 
   const timeSpentData = [
     { name: "Kitchen", value: 120 },
@@ -64,14 +74,40 @@ export function Analytics() {
     { name: "Week 8", rate: 87 },
   ]
 
-  const radarData = [
-    { subject: "Kitchen", Jonathan: 80, Juan: 90, Joaquin: 70, fullMark: 100 },
-    { subject: "Living Room", Jonathan: 75, Juan: 85, Joaquin: 65, fullMark: 100 },
-    { subject: "Bathroom", Jonathan: 85, Juan: 70, Joaquin: 60, fullMark: 100 },
-    { subject: "Bedroom", Jonathan: 65, Juan: 80, Joaquin: 90, fullMark: 100 },
-    { subject: "Garden", Jonathan: 90, Juan: 65, Joaquin: 75, fullMark: 100 },
-    { subject: "Garage", Jonathan: 95, Juan: 60, Joaquin: 85, fullMark: 100 },
+  // Individual radar data for each user
+  const jonathanRadarData = [
+    { subject: "Kitchen", value: 80, fullMark: 100 },
+    { subject: "Living Room", value: 75, fullMark: 100 },
+    { subject: "Bathroom", value: 85, fullMark: 100 },
+    { subject: "Bedroom", value: 65, fullMark: 100 },
+    { subject: "Garden", value: 90, fullMark: 100 },
+    { subject: "Garage", value: 95, fullMark: 100 },
   ]
+
+  const juanRadarData = [
+    { subject: "Kitchen", value: 90, fullMark: 100 },
+    { subject: "Living Room", value: 85, fullMark: 100 },
+    { subject: "Bathroom", value: 70, fullMark: 100 },
+    { subject: "Bedroom", value: 80, fullMark: 100 },
+    { subject: "Garden", value: 65, fullMark: 100 },
+    { subject: "Garage", value: 60, fullMark: 100 },
+  ]
+
+  const joaquinRadarData = [
+    { subject: "Kitchen", value: 70, fullMark: 100 },
+    { subject: "Living Room", value: 65, fullMark: 100 },
+    { subject: "Bathroom", value: 60, fullMark: 100 },
+    { subject: "Bedroom", value: 90, fullMark: 100 },
+    { subject: "Garden", value: 75, fullMark: 100 },
+    { subject: "Garage", value: 85, fullMark: 100 },
+  ]
+
+  // Map of user names to their radar data
+  const userRadarData = {
+    Jonathan: jonathanRadarData,
+    Juan: juanRadarData,
+    Joaquin: joaquinRadarData,
+  }
 
   const scoreDistributionData = [
     { name: "Urgent", value: 45 },
@@ -237,17 +273,45 @@ export function Analytics() {
                 <Card>
                   <CardHeader>
                     <CardTitle>Roommate Performance by Area</CardTitle>
-                    <CardDescription>Completion efficiency by house area</CardDescription>
+                    <CardDescription>Select a roommate to view their performance</CardDescription>
                   </CardHeader>
                   <CardContent>
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {users.map((user) => (
+                        <button
+                          key={user.id}
+                          onClick={() => setSelectedUser(user.name)}
+                          className={`flex items-center gap-2 px-4 py-2 rounded-full transition-colors ${
+                            selectedUser === user.name
+                              ? "bg-primary text-primary-foreground"
+                              : "bg-muted hover:bg-muted/80"
+                          }`}
+                        >
+                          <Avatar className="h-6 w-6">
+                            <AvatarImage src={user.avatar || "/placeholder.svg"} alt={user.name} />
+                            <AvatarFallback>{user.initials}</AvatarFallback>
+                          </Avatar>
+                          <span>{user.name}</span>
+                        </button>
+                      ))}
+                    </div>
+
                     <ResponsiveContainer width="100%" height={400}>
-                      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
+                      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={userRadarData[selectedUser]}>
                         <PolarGrid />
                         <PolarAngleAxis dataKey="subject" />
                         <PolarRadiusAxis angle={30} domain={[0, 100]} />
-                        <Radar name="Jonathan" dataKey="Jonathan" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-                        <Radar name="Juan" dataKey="Juan" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
-                        <Radar name="Joaquin" dataKey="Joaquin" stroke="#ffc658" fill="#ffc658" fillOpacity={0.6} />
+                        <Radar
+                          name={selectedUser}
+                          dataKey="value"
+                          stroke={
+                            selectedUser === "Jonathan" ? "#8884d8" : selectedUser === "Juan" ? "#82ca9d" : "#ffc658"
+                          }
+                          fill={
+                            selectedUser === "Jonathan" ? "#8884d8" : selectedUser === "Juan" ? "#82ca9d" : "#ffc658"
+                          }
+                          fillOpacity={0.6}
+                        />
                         <Legend />
                         <Tooltip />
                       </RadarChart>

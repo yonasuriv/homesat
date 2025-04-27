@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
-import { Plus, MoreHorizontal, Trophy } from "lucide-react"
+import { Plus, MoreHorizontal, Trophy, Crown } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,12 +28,14 @@ export function FamilyMembers() {
         const data = await getFamilyMembers()
 
         // Add some mock stats for now
-        const membersWithStats = data.map((member) => ({
+        const membersWithStats = data.map((member, index) => ({
           ...member,
           completedChores: Math.floor(Math.random() * 10) + 5,
           totalChores: Math.floor(Math.random() * 5) + 10,
           streak: Math.floor(Math.random() * 7) + 1,
           score: Math.floor(Math.random() * 300) + 200,
+          // For demo purposes, let's assume the first member is the creator
+          isCreator: index === 0,
         }))
 
         setMembers(membersWithStats)
@@ -120,7 +122,12 @@ export function FamilyMembers() {
                       <AvatarFallback>{member.initials}</AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="text-sm font-medium leading-none">{member.name}</p>
+                      <div className="flex items-center gap-1">
+                        <p className="text-sm font-medium leading-none">{member.name}</p>
+                        {member.isCreator && (
+                          <Crown className="h-4 w-4 text-yellow-500 ml-1" aria-label="House Creator" />
+                        )}
+                      </div>
                       <p className="text-sm text-muted-foreground">{member.role}</p>
                     </div>
                   </div>
