@@ -80,10 +80,17 @@ export function SignUpForm() {
   const handleGoogleSignUp = async () => {
     setIsLoading(true)
     try {
+      // Use the site URL from the browser for the redirect
+      const siteUrl = window.location.origin
+
       const { error } = await supabaseClient.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
+          redirectTo: `${siteUrl}/auth/callback`,
+          queryParams: {
+            access_type: "offline",
+            prompt: "consent",
+          },
         },
       })
 
