@@ -75,8 +75,8 @@ export default function LandingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                HomeTask helps you organize, assign, and track household chores for everyone in your home. No more
-                arguments about who did what!
+                Organize, assign, and track household chores and expenses for everyone in your home. 
+                No more arguments about who did what!
               </motion.p>
               <motion.div
                 className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
