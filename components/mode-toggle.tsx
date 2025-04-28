@@ -19,13 +19,16 @@ export function ModeToggle() {
     return null
   }
 
-  const isDark = theme === "dark"
-
   return (
-    <div className="flex items-center space-x-2">
-      <Sun className={`h-4 w-4 ${!isDark ? "text-yellow-500" : "text-muted-foreground"}`} />
-      <Switch id="dark-mode" checked={isDark} onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")} />
-      <Moon className={`h-4 w-4 ${isDark ? "text-blue-400" : "text-muted-foreground"}`} />
+    <div className="flex items-center gap-2">
+      <Sun className="h-4 w-4 text-yellow-500" />
+      <Switch
+        id="dark-mode"
+        checked={theme === "dark"}
+        onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
+        className="scale-75"
+      />
+      <Moon className="h-4 w-4 text-blue-400" />
       <Label htmlFor="dark-mode" className="sr-only">
         Dark Mode
       </Label>

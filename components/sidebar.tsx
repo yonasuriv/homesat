@@ -12,8 +12,8 @@ import {
   Map,
   ShieldAlert,
   Home,
-  ChevronLeft,
-  ChevronRight,
+  PanelLeft,
+  PanelLeftClose,
 } from "lucide-react"
 import { useState } from "react"
 
@@ -30,6 +30,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { useAdmin } from "@/hooks/use-admin"
 import { ModeToggle } from "./mode-toggle"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export function AppSidebar() {
   const pathname = usePathname()
@@ -89,60 +90,55 @@ export function AppSidebar() {
   }
 
   return (
-    <div className="flex h-full">
-      <Sidebar collapsible={collapsed ? "icon" : "offcanvas"} className="border-r">
-        <SidebarHeader className="border-b border-sidebar-border">
-          <div className="flex items-center px-4 py-3">
-            <div className="flex items-center gap-2">
-              <Home className="h-7 w-7" />
-              {!collapsed && <span className="text-xl font-bold">HomeTask</span>}
-            </div>
+    <Sidebar collapsible={collapsed ? "icon" : "offcanvas"} className="border-r">
+      <SidebarHeader className="border-b border-sidebar-border">
+        <div className="flex items-center justify-between px-4 py-3">
+          <div className="flex items-center gap-3">
+            <Home className="h-6 w-6 flex-shrink-0" />
+            {!collapsed && <span className="text-xl font-bold">HomeTask</span>}
           </div>
-        </SidebarHeader>
-        <SidebarContent>
-          <SidebarMenu>
-            {menuItems.map((item) => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname === item.href}
-                  tooltip={collapsed ? item.title : undefined}
-                  className="py-3"
-                >
-                  <Link href={item.href}>
-                    <item.icon className="h-6 w-6" />
-                    <span className="text-base">{item.title}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarContent>
-        <SidebarFooter className="border-t border-sidebar-border p-4">
-          <div className="flex flex-col gap-4">
-            <Link
-              href="/settings"
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Settings className="h-5 w-5" />
-              {!collapsed && <span className="text-sm">Settings</span>}
-            </Link>
-            <div className="flex items-center justify-between">
-              <ModeToggle />
+          <Button variant="ghost" size="icon" onClick={() => setCollapsed(!collapsed)} className="h-8 w-8 ml-2">
+            {collapsed ? <PanelLeft className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
+          </Button>
+        </div>
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarMenu>
+          {menuItems.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton
+                asChild
+                isActive={pathname === item.href}
+                tooltip={collapsed ? item.title : undefined}
+                className="py-2.5"
+              >
+                <Link href={item.href} className="flex items-center">
+                  <item.icon className="h-5 w-5 mr-3" />
+                  {!collapsed && <span className="text-sm">{item.title}</span>}
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
+      </SidebarContent>
+      <SidebarFooter className="border-t border-sidebar-border p-4">
+        <div className="flex items-center gap-3">
+          <Avatar className="h-9 w-9">
+            <AvatarImage src="/thoughtful-bearded-man.png" alt="User" />
+            <AvatarFallback>JD</AvatarFallback>
+          </Avatar>
+          {!collapsed && (
+            <div className="flex flex-col">
+              <span className="text-sm font-medium">Juan Munoz</span>
+              <span className="text-xs text-muted-foreground">juan@example.com</span>
             </div>
-          </div>
-        </SidebarFooter>
-        <SidebarRail />
-      </Sidebar>
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={() => setCollapsed(!collapsed)}
-        className="h-10 w-10 absolute left-[16rem] top-4 z-50 rounded-full bg-background border shadow-sm"
-        style={{ left: collapsed ? "4.5rem" : "16rem" }}
-      >
-        {collapsed ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
-      </Button>
-    </div>
+          )}
+        </div>
+        <div className="mt-4">
+          <ModeToggle />
+        </div>
+      </SidebarFooter>
+      <SidebarRail />
+    </Sidebar>
   )
 }
