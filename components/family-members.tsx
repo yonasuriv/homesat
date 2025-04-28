@@ -56,8 +56,8 @@ export function FamilyMembers() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>Roommates</CardTitle>
-              <CardDescription>Loading roommates...</CardDescription>
+              <CardTitle>Members</CardTitle>
+              <CardDescription>Loading members...</CardDescription>
             </div>
           </div>
         </CardHeader>
@@ -76,8 +76,8 @@ export function FamilyMembers() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>Roommates</CardTitle>
-              <CardDescription>No roommates found. Seed the database to get started.</CardDescription>
+              <CardTitle>Members</CardTitle>
+              <CardDescription>No members found. Seed the database to get started.</CardDescription>
             </div>
             <SeedDatabaseButton />
           </div>
@@ -96,8 +96,8 @@ export function FamilyMembers() {
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>Roommates</CardTitle>
-            <CardDescription>Manage roommates and their chore progress</CardDescription>
+            <CardTitle>Members</CardTitle>
+            <CardDescription>Manage members and their chore progress</CardDescription>
           </div>
           <div className="flex gap-2">
             <SeedDatabaseButton />
