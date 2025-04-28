@@ -26,10 +26,10 @@ export async function GET(request: NextRequest) {
 
       if (profile && houseMember) {
         // User is fully set up, redirect to dashboard
-        return NextResponse.redirect(new URL("/dashboard", request.url))
+        return NextResponse.redirect(new URL("/dashboard", requestUrl.origin))
       } else {
         // User needs to complete onboarding
-        return NextResponse.redirect(new URL("/onboarding", request.url))
+        return NextResponse.redirect(new URL("/onboarding", requestUrl.origin))
       }
     }
   }
