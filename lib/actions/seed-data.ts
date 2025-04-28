@@ -27,19 +27,19 @@ export async function seedDatabase() {
   // Seed family members
   const familyMembers = [
     {
-      name: "Jonathan Di Rico",
+      name: "John Doe",
       avatar: "/thoughtful-bearded-man.png",
       initials: "JD",
       role: "Roommate",
     },
     {
-      name: "Juan Munoz",
+      name: "Mark Smith",
       avatar: "/contemplative-artist.png",
       initials: "JM",
       role: "Roommate",
     },
     {
-      name: "Joaquin Vazquez",
+      name: "Sebastian Mall",
       avatar: "/contemplative-man.png",
       initials: "JV",
       role: "Roommate",

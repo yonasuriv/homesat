@@ -10,19 +10,19 @@ interface ChoreDistributionProps {
 export function ChoreDistribution({ className }: ChoreDistributionProps) {
   const data = [
     {
-      name: "Jonathan",
+      name: "John",
       completed: 8,
       pending: 2,
       overdue: 1,
     },
     {
-      name: "Juan",
+      name: "Mark",
       completed: 10,
       pending: 3,
       overdue: 0,
     },
     {
-      name: "Joaquin",
+      name: "Sebastian",
       completed: 6,
       pending: 4,
       overdue: 2,

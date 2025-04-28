@@ -6,6 +6,14 @@ export async function middleware(req: NextRequest) {
   const res = NextResponse.next()
   const supabase = createMiddlewareClient({ req, res })
 
+  // Check if there's a code parameter in the URL and we're at the root
+  const url = new URL(req.url)
+  if (url.pathname === "/" && url.searchParams.has("code")) {
+    console.log("Code parameter detected at root, redirecting to /auth/callback")
+    const code = url.searchParams.get("code")
+    return NextResponse.redirect(new URL(`/auth/callback?code=${code}`, req.url))
+  }
+
   const {
     data: { session },
   } = await supabase.auth.getSession()

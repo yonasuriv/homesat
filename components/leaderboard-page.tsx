@@ -14,7 +14,7 @@ export function LeaderboardPage() {
   const allTimeLeaders = [
     {
       rank: 1,
-      name: "Juan Munoz",
+      name: "Mark Smith",
       avatar: "/contemplative-artist.png",
       initials: "JM",
       points: 12580,
@@ -39,7 +39,7 @@ export function LeaderboardPage() {
     },
     {
       rank: 2,
-      name: "Jonathan Di Rico",
+      name: "John Doe",
       avatar: "/thoughtful-bearded-man.png",
       initials: "JD",
       points: 11490,
@@ -64,7 +64,7 @@ export function LeaderboardPage() {
     },
     {
       rank: 3,
-      name: "Joaquin Vazquez",
+      name: "Sebastian Mall",
       avatar: "/contemplative-man.png",
       initials: "JV",
       points: 10420,
@@ -92,48 +92,48 @@ export function LeaderboardPage() {
   // Area rankings
   const areaRankings = {
     kitchen: [
-      { name: "Juan Munoz", avatar: "/contemplative-artist.png", initials: "JM", score: 95 },
-      { name: "Joaquin Vazquez", avatar: "/contemplative-man.png", initials: "JV", score: 88 },
-      { name: "Jonathan Di Rico", avatar: "/thoughtful-bearded-man.png", initials: "JD", score: 80 },
+      { name: "Mark Smith", avatar: "/contemplative-artist.png", initials: "JM", score: 95 },
+      { name: "Sebastian Mall", avatar: "/contemplative-man.png", initials: "JV", score: 88 },
+      { name: "John Doe", avatar: "/thoughtful-bearded-man.png", initials: "JD", score: 80 },
     ],
     livingRoom: [
-      { name: "Jonathan Di Rico", avatar: "/thoughtful-bearded-man.png", initials: "JD", score: 92 },
-      { name: "Juan Munoz", avatar: "/contemplative-artist.png", initials: "JM", score: 85 },
-      { name: "Joaquin Vazquez", avatar: "/contemplative-man.png", initials: "JV", score: 75 },
+      { name: "John Doe", avatar: "/thoughtful-bearded-man.png", initials: "JD", score: 92 },
+      { name: "Mark Smith", avatar: "/contemplative-artist.png", initials: "JM", score: 85 },
+      { name: "Sebastian Mall", avatar: "/contemplative-man.png", initials: "JV", score: 75 },
     ],
     bathroom: [
-      { name: "Joaquin Vazquez", avatar: "/contemplative-man.png", initials: "JV", score: 92 },
-      { name: "Juan Munoz", avatar: "/contemplative-artist.png", initials: "JM", score: 90 },
-      { name: "Jonathan Di Rico", avatar: "/thoughtful-bearded-man.png", initials: "JD", score: 75 },
+      { name: "Sebastian Mall", avatar: "/contemplative-man.png", initials: "JV", score: 92 },
+      { name: "Mark Smith", avatar: "/contemplative-artist.png", initials: "JM", score: 90 },
+      { name: "John Doe", avatar: "/thoughtful-bearded-man.png", initials: "JD", score: 75 },
     ],
     bedroom: [
-      { name: "Jonathan Di Rico", avatar: "/thoughtful-bearded-man.png", initials: "JD", score: 88 },
-      { name: "Juan Munoz", avatar: "/contemplative-artist.png", initials: "JM", score: 75 },
-      { name: "Joaquin Vazquez", avatar: "/contemplative-man.png", initials: "JV", score: 70 },
+      { name: "John Doe", avatar: "/thoughtful-bearded-man.png", initials: "JD", score: 88 },
+      { name: "Mark Smith", avatar: "/contemplative-artist.png", initials: "JM", score: 75 },
+      { name: "Sebastian Mall", avatar: "/contemplative-man.png", initials: "JV", score: 70 },
     ],
     garden: [
-      { name: "Juan Munoz", avatar: "/contemplative-artist.png", initials: "JM", score: 80 },
-      { name: "Joaquin Vazquez", avatar: "/contemplative-man.png", initials: "JV", score: 85 },
-      { name: "Jonathan Di Rico", avatar: "/thoughtful-bearded-man.png", initials: "JD", score: 70 },
+      { name: "Mark Smith", avatar: "/contemplative-artist.png", initials: "JM", score: 80 },
+      { name: "Sebastian Mall", avatar: "/contemplative-man.png", initials: "JV", score: 85 },
+      { name: "John Doe", avatar: "/thoughtful-bearded-man.png", initials: "JD", score: 70 },
     ],
   }
 
   // Task type rankings
   const taskRankings = {
     urgent: [
-      { name: "Juan Munoz", avatar: "/contemplative-artist.png", initials: "JM", count: 212, efficiency: 94 },
-      { name: "Jonathan Di Rico", avatar: "/thoughtful-bearded-man.png", initials: "JD", count: 190, efficiency: 88 },
-      { name: "Joaquin Vazquez", avatar: "/contemplative-man.png", initials: "JV", count: 168, efficiency: 82 },
+      { name: "Mark Smith", avatar: "/contemplative-artist.png", initials: "JM", count: 212, efficiency: 94 },
+      { name: "John Doe", avatar: "/thoughtful-bearded-man.png", initials: "JD", count: 190, efficiency: 88 },
+      { name: "Sebastian Mall", avatar: "/contemplative-man.png", initials: "JV", count: 168, efficiency: 82 },
     ],
     disaster: [
-      { name: "Juan Munoz", avatar: "/contemplative-artist.png", initials: "JM", count: 85, efficiency: 96 },
-      { name: "Jonathan Di Rico", avatar: "/thoughtful-bearded-man.png", initials: "JD", count: 74, efficiency: 90 },
-      { name: "Joaquin Vazquez", avatar: "/contemplative-man.png", initials: "JV", count: 63, efficiency: 85 },
+      { name: "Mark Smith", avatar: "/contemplative-artist.png", initials: "JM", count: 85, efficiency: 96 },
+      { name: "John Doe", avatar: "/thoughtful-bearded-man.png", initials: "JD", count: 74, efficiency: 90 },
+      { name: "Sebastian Mall", avatar: "/contemplative-man.png", initials: "JV", count: 63, efficiency: 85 },
     ],
     recurring: [
-      { name: "Jonathan Di Rico", avatar: "/thoughtful-bearded-man.png", initials: "JD", count: 320, efficiency: 95 },
-      { name: "Juan Munoz", avatar: "/contemplative-artist.png", initials: "JM", count: 305, efficiency: 92 },
-      { name: "Joaquin Vazquez", avatar: "/contemplative-man.png", initials: "JV", count: 280, efficiency: 88 },
+      { name: "John Doe", avatar: "/thoughtful-bearded-man.png", initials: "JD", count: 320, efficiency: 95 },
+      { name: "Mark Smith", avatar: "/contemplative-artist.png", initials: "JM", count: 305, efficiency: 92 },
+      { name: "Sebastian Mall", avatar: "/contemplative-man.png", initials: "JV", count: 280, efficiency: 88 },
     ],
   }
 

@@ -337,19 +337,19 @@ return (
                 <div className="divide-y">
                   {[
                   {
-                  name: "Jonathan Di Rico",
+                  name: "John Doe",
                   role: "Roommate",
                   permissions: "Admin",
                   preferences: "Kitchen, Garden",
                   },
                   {
-                  name: "Juan Munoz",
+                  name: "Mark Smith",
                   role: "Roommate",
                   permissions: "Admin",
                   preferences: "Living Room, Bedroom",
                   },
                   {
-                  name: "Joaquin Vazquez",
+                  name: "Sebastian Mall",
                   role: "Roommate",
                   permissions: "Member",
                   preferences: "Garage, Yard",

@@ -26,7 +26,7 @@ export function ChoresList() {
       id: "1",
       name: "Aspirar Sofás",
       assignee: {
-        name: "Jonathan Di Rico",
+        name: "John Doe",
         avatar: "/thoughtful-bearded-man.png",
         initials: "JD",
       },
@@ -46,7 +46,7 @@ export function ChoresList() {
       id: "2",
       name: "Barrer/Aspirar Piso",
       assignee: {
-        name: "Juan Munoz",
+        name: "Mark Smith",
         avatar: "/contemplative-artist.png",
         initials: "JM",
       },
@@ -66,7 +66,7 @@ export function ChoresList() {
       id: "3",
       name: "Trapear Piso",
       assignee: {
-        name: "Joaquin Vazquez",
+        name: "Sebastian Mall",
         avatar: "/contemplative-man.png",
         initials: "JV",
       },
@@ -86,7 +86,7 @@ export function ChoresList() {
       id: "4",
       name: "Sacar Telarañas",
       assignee: {
-        name: "Jonathan Di Rico",
+        name: "John Doe",
         avatar: "/thoughtful-bearded-man.png",
         initials: "JD",
       },
@@ -106,7 +106,7 @@ export function ChoresList() {
       id: "5",
       name: "Limpiar Vidrios",
       assignee: {
-        name: "Juan Munoz",
+        name: "Mark Smith",
         avatar: "/contemplative-artist.png",
         initials: "JM",
       },
@@ -126,7 +126,7 @@ export function ChoresList() {
       id: "6",
       name: "Limpiar Superficies",
       assignee: {
-        name: "Joaquin Vazquez",
+        name: "Sebastian Mall",
         avatar: "/contemplative-man.png",
         initials: "JV",
       },
@@ -148,7 +148,7 @@ export function ChoresList() {
       id: "7",
       name: "Limpiar Bandejas",
       assignee: {
-        name: "Jonathan Di Rico",
+        name: "John Doe",
         avatar: "/thoughtful-bearded-man.png",
         initials: "JD",
       },
@@ -168,7 +168,7 @@ export function ChoresList() {
       id: "8",
       name: "Limpiar Horno",
       assignee: {
-        name: "Juan Munoz",
+        name: "Mark Smith",
         avatar: "/contemplative-artist.png",
         initials: "JM",
       },
@@ -188,7 +188,7 @@ export function ChoresList() {
       id: "9",
       name: "Limpieza cajones",
       assignee: {
-        name: "Joaquin Vazquez",
+        name: "Sebastian Mall",
         avatar: "/contemplative-man.png",
         initials: "JV",
       },
@@ -208,7 +208,7 @@ export function ChoresList() {
       id: "10",
       name: "Limpieza estantes",
       assignee: {
-        name: "Jonathan Di Rico",
+        name: "John Doe",
         avatar: "/thoughtful-bearded-man.png",
         initials: "JD",
       },
@@ -230,7 +230,7 @@ export function ChoresList() {
       id: "11",
       name: "Limpiar Hinodoro",
       assignee: {
-        name: "Juan Munoz",
+        name: "Mark Smith",
         avatar: "/contemplative-artist.png",
         initials: "JM",
       },
@@ -250,7 +250,7 @@ export function ChoresList() {
       id: "12",
       name: "Limpiar Ducha",
       assignee: {
-        name: "Joaquin Vazquez",
+        name: "Sebastian Mall",
         avatar: "/contemplative-man.png",
         initials: "JV",
       },
@@ -270,7 +270,7 @@ export function ChoresList() {
       id: "13",
       name: "Limpiar Secarropa",
       assignee: {
-        name: "Jonathan Di Rico",
+        name: "John Doe",
         avatar: "/thoughtful-bearded-man.png",
         initials: "JD",
       },
@@ -290,7 +290,7 @@ export function ChoresList() {
       id: "14",
       name: "Limpiar Lavarropa",
       assignee: {
-        name: "Juan Munoz",
+        name: "Mark Smith",
         avatar: "/contemplative-artist.png",
         initials: "JM",
       },

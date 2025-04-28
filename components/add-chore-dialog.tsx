@@ -38,11 +38,11 @@ export function AddChoreDialog({ onAddChore }: { onAddChore: (chore: any) => voi
     const assigneeData = {
       name: assignee || "Unassigned",
       avatar:
-        assignee === "Jonathan Di Rico"
+        assignee === "John Doe"
           ? "/thoughtful-bearded-man.png"
-          : assignee === "Juan Munoz"
+          : assignee === "Mark Smith"
             ? "/contemplative-artist.png"
-            : assignee === "Joaquin Vazquez"
+            : assignee === "Sebastian Mall"
               ? "/contemplative-man.png"
               : "",
       initials: assignee
@@ -180,9 +180,9 @@ export function AddChoreDialog({ onAddChore }: { onAddChore: (chore: any) => voi
                   <SelectValue placeholder="Select assignee" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Jonathan Di Rico">Jonathan Di Rico</SelectItem>
-                  <SelectItem value="Juan Munoz">Juan Munoz</SelectItem>
-                  <SelectItem value="Joaquin Vazquez">Joaquin Vazquez</SelectItem>
+                  <SelectItem value="John Doe">John Doe</SelectItem>
+                  <SelectItem value="Mark Smith">Mark Smith</SelectItem>
+                  <SelectItem value="Sebastian Mall">Sebastian Mall</SelectItem>
                   <SelectItem value="Unassigned">Unassigned</SelectItem>
                 </SelectContent>
               </Select>

@@ -35,13 +35,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export function Analytics() {
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884d8", "#82ca9d"]
-  const [selectedUser, setSelectedUser] = useState("Jonathan")
+  const [selectedUser, setSelectedUser] = useState("John")
 
   // Mock users data
   const users = [
-    { id: 1, name: "Jonathan", avatar: "/thoughtful-bearded-man.png", initials: "JD" },
-    { id: 2, name: "Juan", avatar: "/contemplative-man.png", initials: "JM" },
-    { id: 3, name: "Joaquin", avatar: "/thoughtful-gentleman.png", initials: "JR" },
+    { id: 1, name: "John", avatar: "/thoughtful-bearded-man.png", initials: "JD" },
+    { id: 2, name: "Mark", avatar: "/contemplative-man.png", initials: "JM" },
+    { id: 3, name: "Sebastian", avatar: "/thoughtful-gentleman.png", initials: "JR" },
   ]
 
   const timeSpentData = [
@@ -54,13 +54,13 @@ export function Analytics() {
   ]
 
   const scoreByDayData = [
-    { name: "Mon", Jonathan: 50, Juan: 65, Joaquin: 40 },
-    { name: "Tue", Jonathan: 60, Juan: 45, Joaquin: 55 },
-    { name: "Wed", Jonathan: 45, Juan: 70, Joaquin: 35 },
-    { name: "Thu", Jonathan: 75, Juan: 60, Joaquin: 50 },
-    { name: "Fri", Jonathan: 55, Juan: 50, Joaquin: 60 },
-    { name: "Sat", Jonathan: 80, Juan: 75, Joaquin: 65 },
-    { name: "Sun", Jonathan: 40, Juan: 55, Joaquin: 30 },
+    { name: "Mon", John: 50, Mark: 65, Sebastian: 40 },
+    { name: "Tue", John: 60, Mark: 45, Sebastian: 55 },
+    { name: "Wed", John: 45, Mark: 70, Sebastian: 35 },
+    { name: "Thu", John: 75, Mark: 60, Sebastian: 50 },
+    { name: "Fri", John: 55, Mark: 50, Sebastian: 60 },
+    { name: "Sat", John: 80, Mark: 75, Sebastian: 65 },
+    { name: "Sun", John: 40, Mark: 55, Sebastian: 30 },
   ]
 
   const completionRateData = [
@@ -75,7 +75,7 @@ export function Analytics() {
   ]
 
   // Individual radar data for each user
-  const jonathanRadarData = [
+  const JohnRadarData = [
     { subject: "Kitchen", value: 80, fullMark: 100 },
     { subject: "Living Room", value: 75, fullMark: 100 },
     { subject: "Bathroom", value: 85, fullMark: 100 },
@@ -84,7 +84,7 @@ export function Analytics() {
     { subject: "Garage", value: 95, fullMark: 100 },
   ]
 
-  const juanRadarData = [
+  const MarkRadarData = [
     { subject: "Kitchen", value: 90, fullMark: 100 },
     { subject: "Living Room", value: 85, fullMark: 100 },
     { subject: "Bathroom", value: 70, fullMark: 100 },
@@ -93,7 +93,7 @@ export function Analytics() {
     { subject: "Garage", value: 60, fullMark: 100 },
   ]
 
-  const joaquinRadarData = [
+  const SebastianRadarData = [
     { subject: "Kitchen", value: 70, fullMark: 100 },
     { subject: "Living Room", value: 65, fullMark: 100 },
     { subject: "Bathroom", value: 60, fullMark: 100 },
@@ -104,9 +104,9 @@ export function Analytics() {
 
   // Map of user names to their radar data
   const userRadarData = {
-    Jonathan: jonathanRadarData,
-    Juan: juanRadarData,
-    Joaquin: joaquinRadarData,
+    John: JohnRadarData,
+    Mark: MarkRadarData,
+    Sebastian: SebastianRadarData,
   }
 
   const scoreDistributionData = [
@@ -182,7 +182,7 @@ export function Analytics() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">14 days</div>
-                  <p className="text-xs text-muted-foreground">Juan (current streak)</p>
+                  <p className="text-xs text-muted-foreground">Mark (current streak)</p>
                 </CardContent>
               </Card>
             </div>
@@ -231,9 +231,9 @@ export function Analytics() {
                           <YAxis />
                           <Tooltip />
                           <Legend />
-                          <Bar dataKey="Jonathan" fill="#8884d8" />
-                          <Bar dataKey="Juan" fill="#82ca9d" />
-                          <Bar dataKey="Joaquin" fill="#ffc658" />
+                          <Bar dataKey="John" fill="#8884d8" />
+                          <Bar dataKey="Mark" fill="#82ca9d" />
+                          <Bar dataKey="Sebastian" fill="#ffc658" />
                         </BarChart>
                       </ResponsiveContainer>
                     </CardContent>
@@ -305,10 +305,10 @@ export function Analytics() {
                           name={selectedUser}
                           dataKey="value"
                           stroke={
-                            selectedUser === "Jonathan" ? "#8884d8" : selectedUser === "Juan" ? "#82ca9d" : "#ffc658"
+                            selectedUser === "John" ? "#8884d8" : selectedUser === "Mark" ? "#82ca9d" : "#ffc658"
                           }
                           fill={
-                            selectedUser === "Jonathan" ? "#8884d8" : selectedUser === "Juan" ? "#82ca9d" : "#ffc658"
+                            selectedUser === "John" ? "#8884d8" : selectedUser === "Mark" ? "#82ca9d" : "#ffc658"
                           }
                           fillOpacity={0.6}
                         />

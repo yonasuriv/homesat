@@ -15,7 +15,7 @@ export function Dashboard() {
   // Mock user data
   const userData = {
     weekly: {
-      name: "Juan Munoz",
+      name: "Mark Smith",
       avatar: "/contemplative-artist.png",
       initials: "JM",
       points: 580,
@@ -40,7 +40,7 @@ export function Dashboard() {
       ],
     },
     monthly: {
-      name: "Juan Munoz",
+      name: "Mark Smith",
       avatar: "/contemplative-artist.png",
       initials: "JM",
       points: 2450,
@@ -68,21 +68,21 @@ export function Dashboard() {
     {
       id: "achievement-1",
       title: "Most Improved",
-      description: "Joaquin (+45%)",
+      description: "Sebastian (+45%)",
       icon: <Award className="h-5 w-5 text-green-500" />,
       color: "bg-green-500/10 border-green-500/20",
     },
     {
       id: "achievement-2",
       title: "Perfect Streak",
-      description: "Juan (7 days)",
+      description: "Mark (7 days)",
       icon: <Star className="h-5 w-5 text-yellow-500" />,
       color: "bg-yellow-500/10 border-yellow-500/20",
     },
     {
       id: "achievement-3",
       title: "Most Consistent",
-      description: "Jonathan (92% completion)",
+      description: "John (92% completion)",
       icon: <Medal className="h-5 w-5 text-blue-500" />,
       color: "bg-blue-500/10 border-blue-500/20",
     },

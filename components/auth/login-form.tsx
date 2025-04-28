@@ -12,6 +12,18 @@ import { supabaseClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 
+// Get the site URL for redirect
+const getURL = () => {
+  let url =
+    process?.env?.NEXT_PUBLIC_SITE_URL ?? // Set this to your site URL in production env.
+    'http://localhost:3000'
+  // Make sure to include `https://` when not localhost.
+  url = url.includes('http') ? url : `https://${url}`
+  // Make sure to NOT include trailing `/`
+  url = url.charAt(url.length - 1) === '/' ? url.slice(0, -1) : url
+  return url
+}
+
 const formSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address.",
@@ -66,10 +78,12 @@ export function LoginForm() {
   const handleGoogleSignIn = async () => {
     setIsLoading(true)
     try {
-      // Do NOT specify redirectTo here - let the client config handle it
+      console.log("Starting Google OAuth flow...")
+      console.log("Redirect URL:", `${getURL()}/auth/callback`)
       const { error } = await supabaseClient.auth.signInWithOAuth({
         provider: "google",
         options: {
+          redirectTo: `${getURL()}/auth/callback`,
           queryParams: {
             access_type: "offline",
             prompt: "consent",

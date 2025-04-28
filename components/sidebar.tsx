@@ -132,8 +132,8 @@ export function AppSidebar() {
                   <AvatarFallback>JM</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col">
-                  <span className="text-sm font-medium">Juan Munoz</span>
-                  <span className="text-xs text-muted-foreground">juan@example.com</span>
+                  <span className="text-sm font-medium">Mark Smith</span>
+                  <span className="text-xs text-muted-foreground">Mark@example.com</span>
                 </div>
               </div>
             </>

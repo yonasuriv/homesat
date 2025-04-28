@@ -24,7 +24,7 @@ export function HouseAreas() {
           ...area,
           totalChores: Math.floor(Math.random() * 5) + 3,
           completedChores: Math.floor(Math.random() * 3) + 1,
-          assignedTo: ["Jonathan", "Juan", "Joaquin"].slice(0, Math.floor(Math.random() * 3) + 1),
+          assignedTo: ["John", "Mark", "Sebastian"].slice(0, Math.floor(Math.random() * 3) + 1),
           priority: ["MUST DO", "IMPORTANT", "DO IT CALMLY", "OPTIONAL"][Math.floor(Math.random() * 4)],
           lastCleaned: ["Today", "Yesterday", "2 days ago", "Last week"][Math.floor(Math.random() * 4)],
           score: Math.floor(Math.random() * 100),
